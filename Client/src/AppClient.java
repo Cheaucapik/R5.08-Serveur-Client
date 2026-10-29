@@ -12,7 +12,8 @@ public class AppClient {
         BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in)); //ce qu'on tape
 
         if(args.length < 1){
-            System.out.println("Usage: java AppClient <port>");
+            System.out.println("Usage: java AppClient heheh <port>");
+            return;
         }
 
         PORT = Integer.parseInt(args[0]);
