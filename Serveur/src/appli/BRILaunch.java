@@ -1,5 +1,6 @@
 package appli;
 
+import bri.IBriService;
 import bri.ServeurBRI;
 
 import static java.lang.Integer.parseInt;
@@ -18,13 +19,17 @@ public class BRILaunch {
             Class<?> maClasse = Class.forName(nomClasse);
             Class<?>[] interfaces = maClasse.getInterfaces();
 
-            if (!isInterface("Runnable", interfaces)) {
-                System.out.println("Erreur : La classe " + nomClasse + " ne respecte pas le contrat (doit implémenter Runnable).");
-            }
-            else {
-                Class<? extends Runnable> serviceClass = (Class<? extends Runnable>) maClasse;
+
+            if (!IBriService.class.isAssignableFrom(maClasse)) {
+                System.out.println("Erreur : La classe " + nomClasse
+                        + " doit implémenter IBriService.");
+            } else {
+                Class<? extends IBriService> serviceClass =
+                        maClasse.asSubclass(IBriService.class);
+
                 new Thread(new ServeurBRI(serviceClass, numPort)).start();
             }
+
         }
         catch (Exception e){
             throw new Exception(e.getMessage());

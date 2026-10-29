@@ -1,4 +1,4 @@
-package Talina;
+package talina;
 
 import bri.IBriService;
 
