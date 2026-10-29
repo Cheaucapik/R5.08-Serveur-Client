@@ -24,17 +24,25 @@ public class InversionTexte implements IBriService {
                 ) {
 
             // petit affichage dans la console
-            out.println("Veuillez saisir le texte à inverser : ");
+            //quand on aura les log ce serait cool de recup son id pour lui dire bienvenu X
+            out.println("##Bienvenue dans le service d'INVERSION DE TEXTE");
+            out.println("##Pour quitter le service, tapez 'exit' à tout moment.");
+            out.println("Veuillez saisir le texte à inverser :");
             String ClientSaisie;
 
                 while ((ClientSaisie = in.readLine()) !=null && !ClientSaisie.isEmpty() && !ClientSaisie.equals("exit")){
 
+                    if (ClientSaisie.length() < 2) {
+                        out.println("Erreur ! Veuillez saisir au minimum deux caractères ");
 
-                    // On inverse le texte donné par la socket
-                    String TexteInversed = new StringBuilder(ClientSaisie).reverse().toString();
+                    }else {
+                        // On inverse le texte donné par la socket
+                        String TexteInversed = new StringBuilder(ClientSaisie).reverse().toString();
 
-                    // mtn on affiche
-                    out.println("Voici le résultat de l'inversion : " + TexteInversed);
+                        // mtn on affiche
+                        out.println("Voici le résultat de l'inversion : " + TexteInversed);
+                    }
+
 
                 }
 
