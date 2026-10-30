@@ -82,6 +82,12 @@ public class ServiceProg implements Runnable {
             out.println("##Utilisateur créé avec succès. Veuillez désormais vous connecter.");
         }
         catch (Exception e){
+            if(e instanceof IllegalArgumentException) {
+                out.println("##" + e.getMessage());
+            }
+            else {
+                out.println("##Erreur générale : " + e.getMessage());
+            }
         }
     }
 

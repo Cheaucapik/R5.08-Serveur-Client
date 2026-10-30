@@ -1,6 +1,7 @@
 package bri;
 
 import entitites.Programmeur;
+import entitites.ProgrammeurRegistry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +22,8 @@ public class ServiceAma implements Runnable {
             BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
             PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);
             //afficher tous les services disponibles
-            out.println("##Tapez le numéro de service désiré :");
+            out.println(ProgrammeurRegistry.toStringue());
+            out.println("Tapez le numéro de service désiré :");
             int choix = Integer.parseInt(in.readLine());
         }
         catch (IOException e){

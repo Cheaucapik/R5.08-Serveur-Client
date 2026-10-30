@@ -31,6 +31,7 @@ public class Programmeur {
     public String getUrlFTP() {
         return UrlFTP;
     }
+    public List<Class<? extends Runnable>> getServicesList() { return servicesList; }
 
     public Class<? extends Runnable> chargerFtp(String serviceName) throws Exception {
         URL[] urls = { new URL(UrlFTP) };
