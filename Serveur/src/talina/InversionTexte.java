@@ -1,27 +1,27 @@
 package talina;
 
-import bri.IBriService;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class InversionTexte implements IBriService {
+public class InversionTexte implements Runnable {
+    private Socket socket;
 
-    // Création du constructeur
-    public InversionTexte(){}
+    public InversionTexte(Socket socket) {
+        this.socket = socket;
+    }
 
+    // --- MÉTHODE MAIN DE TEST ---
     @Override
-    public void runService(Socket socket) {
-
-        try(
+    public void run() {
+        try (
                 // c'est mon oreille LOL qui me permet d'écouter ce que le client me dit , donc me permet d'entendre ou lire le texte que je devrais inverser
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 //c'est ma bouche, qui va me permettre de réondre au client
-                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-                ) {
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        ) {
 
             // petit affichage dans la console
             //quand on aura les log ce serait cool de recup son id pour lui dire bienvenu X
@@ -30,47 +30,24 @@ public class InversionTexte implements IBriService {
             out.println("Veuillez saisir le texte à inverser :");
             String ClientSaisie;
 
-                while ((ClientSaisie = in.readLine()) !=null && !ClientSaisie.isEmpty() && !ClientSaisie.equals("exit")){
+            while ((ClientSaisie = in.readLine()) != null && !ClientSaisie.isEmpty() && !ClientSaisie.equals("exit")) {
 
-                    if (ClientSaisie.length() < 2) {
-                        out.println("Erreur ! Veuillez saisir au minimum deux caractères ");
+                if (ClientSaisie.length() < 2) {
+                    out.println("Erreur ! Veuillez saisir au minimum deux caractères ");
 
-                    }else {
-                        // On inverse le texte donné par la socket
-                        String TexteInversed = new StringBuilder(ClientSaisie).reverse().toString();
+                } else {
+                    // On inverse le texte donné par la socket
+                    String TexteInversed = new StringBuilder(ClientSaisie).reverse().toString();
 
-                        // mtn on affiche
-                        out.println("Voici le résultat de l'inversion : " + TexteInversed);
-                    }
-
-
+                    // mtn on affiche
+                    out.println("Voici le résultat de l'inversion : " + TexteInversed);
                 }
+
+
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    // --- MÉTHODE MAIN DE TEST ---
-    public static void main(String[] args) {
-        int portTest = 5000;
-
-        try (java.net.ServerSocket serverTest = new java.net.ServerSocket(portTest)) {
-            System.out.println("... SERVEUR DE TEST LANCÉ SUR LE PORT " + portTest + " ===");
-            System.out.println("Attente de la connexion d'un client ...");
-
-
-            Socket clientSocket = serverTest.accept();
-            System.out.println("-> Client connecté ! Exécution de runService...");
-
-
-            InversionTexte service = new InversionTexte();
-            service.runService(clientSocket);
-
-            System.out.println("FIN DU SERVICE.... ");
-
-        } catch (IOException e) {
-            System.err.println("Erreur du serveur de test : " + e.getMessage());
         }
     }
 }

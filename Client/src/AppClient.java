@@ -12,7 +12,7 @@ public class AppClient {
         BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in)); //ce qu'on tape
 
         if(args.length < 1){
-            System.out.println("Usage: java AppClient heheh <port>");
+            System.out.println("Usage: java AppClient <port>");
             return;
         }
 

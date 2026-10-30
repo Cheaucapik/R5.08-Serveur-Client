@@ -9,9 +9,9 @@ public class ServeurBRI implements Runnable {
 
     private int numPort;
     private ServerSocket serverSocket;
-    private Class<? extends IBriService> serviceClass;
+    private Class<? extends Runnable> serviceClass;
 
-    public ServeurBRI(Class<? extends IBriService> serviceClass, int port) {
+    public ServeurBRI(Class<? extends Runnable> serviceClass, int port) {
         this.numPort = port;
         this.serviceClass = serviceClass;
     }
@@ -23,25 +23,14 @@ public class ServeurBRI implements Runnable {
             System.out.println("Lancement du serveur au port " + numPort);
 
             while (true) {
-                Socket client = serverSocket.accept();
-
-                new Thread(() -> {
-                    try {
-                        IBriService service =
-                                serviceClass.getDeclaredConstructor().newInstance();
-
-                        service.runService(client);
-
-                    } catch (Exception e) {
-                        System.err.println("Erreur du service : " + e.getMessage());
-
-                        try {
-                            client.close();
-                        } catch (IOException ex) {
-                            System.err.println(ex.getMessage());
-                        }
-                    }
-                }).start();
+                Socket client = this.serverSocket.accept();
+                try{
+                    new Thread(serviceClass.getDeclaredConstructor(Socket.class).newInstance(client)).start();
+                }
+                catch (Exception e)
+                {
+                    System.err.println("Erreur du serveur : " + e.getMessage());
+                }
             }
 
         } catch (IOException e) {

@@ -20,7 +20,8 @@ public class ServiceAma implements Runnable {
         try{
             BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
             PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);
-            out.println(Programmeur.toStringue()+"##Tapez le numéro de service désiré :");
+            //afficher tous les services disponibles
+            out.println("##Tapez le numéro de service désiré :");
             int choix = Integer.parseInt(in.readLine());
         }
         catch (IOException e){

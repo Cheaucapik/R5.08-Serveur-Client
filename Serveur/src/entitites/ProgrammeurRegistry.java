@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgrammeurRegistry {
-    private static List<Programmeur> programmeurList;
-
-    public ProgrammeurRegistry(){
-        programmeurList = new ArrayList<Programmeur>();
-    }
+    private static List<Programmeur> programmeurList = new ArrayList<>();
 
     public static void addProgrammeur(Programmeur p){
         programmeurList.add(p);
