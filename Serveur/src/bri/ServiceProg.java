@@ -65,6 +65,7 @@ public class ServiceProg implements Runnable {
             }
         }
         catch (Exception e){
+            out.println("##" + e.getMessage());
         }
         return p;
     }
@@ -82,12 +83,7 @@ public class ServiceProg implements Runnable {
             out.println("##Utilisateur créé avec succès. Veuillez désormais vous connecter.");
         }
         catch (Exception e){
-            if(e instanceof IllegalArgumentException) {
-                out.println("##" + e.getMessage());
-            }
-            else {
-                out.println("##Erreur générale : " + e.getMessage());
-            }
+            out.println("##" + e.getMessage());
         }
     }
 
@@ -120,6 +116,7 @@ public class ServiceProg implements Runnable {
             }
         }
         catch (Exception e){
+            out.println("##" + e.getMessage());
         }
     }
 
@@ -139,16 +136,7 @@ public class ServiceProg implements Runnable {
             out.println("##Erreur : Veuillez entrer un numéro associé aux options.");
         }
         catch (Exception e){
-            if(e instanceof ClassNotFoundException) out.println("## Erreur : .class introuvable");
-            else if (e instanceof NoSuchMethodException) {
-                out.println("##Erreur : Pas de constructeur Socket.");
-            }
-            else if(e instanceof SecurityException){
-                out.println("##Erreur : Pas de package au nom du login : " + p.getUser());
-            }
-            else {
-                out.println("##Erreur générale : " + e.getMessage());
-            }
+            out.println(e.getMessage());
         }
     }
 
@@ -160,6 +148,7 @@ public class ServiceProg implements Runnable {
             out.println("##Nouvelle url validée : " + p.getUrlFTP());
         }
         catch (Exception e){
+            out.println("##" + e.getMessage());
         }
     }
 
