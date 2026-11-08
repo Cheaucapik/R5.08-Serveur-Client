@@ -1,13 +1,15 @@
 package talina;
 
+import bri.Service;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class InversionTexte implements Runnable {
-    private Socket socket;
+public class InversionTexte implements Service {
+    private final Socket socket;
 
     public InversionTexte(Socket socket) {
         this.socket = socket;
@@ -49,5 +51,9 @@ public class InversionTexte implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String toStringue(){
+        return "Service d'inversion de texte";
     }
 }
