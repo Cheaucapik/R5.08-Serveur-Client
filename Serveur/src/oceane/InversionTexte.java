@@ -1,4 +1,6 @@
-package talina;
+package oceane;
+
+import bri.Service;
 
 import bri.Service;
 
