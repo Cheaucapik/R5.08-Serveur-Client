@@ -100,7 +100,7 @@ public class ServiceProg implements Runnable {
         try{
             while(true) {
                 out.println(p.toStringue());
-                out.println("##1) Fournir un nouveau service \n##2) Mettre-à-Jour un service \n##3) Déclarer un changement d'adresse du serveur ftp \nq : quitter");
+                out.println("##1) Fournir un nouveau service \n##2) Mettre-à-Jour un service \n##3) Déclarer un changement d'adresse du serveur ftp \n##4) Arreter un service  \nq : quitter");
 
                 String line = lireReponse();
                 if (line == null) return;
@@ -109,6 +109,7 @@ public class ServiceProg implements Runnable {
                     if (num == 1) newService(in, out);
                     else if (num == 2) MAJ(in, out);
                     else if (num == 3) changeFTP(in, out);
+                    else if (num == 4)  desinstallerService(in,out);
                     else out.println("##Veuillez choisir une des options");
                 } catch (NumberFormatException e) {
                     out.println("##Erreur : Vous devez saisir un nombre entier.");
@@ -149,6 +150,29 @@ public class ServiceProg implements Runnable {
         }
         catch (Exception e){
             out.println("##" + e.getMessage());
+        }
+    }
+    private void desinstallerService(BufferedReader in, PrintWriter out) {
+        try {
+            out.println(p.toStringue());
+            out.println("Veuillez entrer le numéro du service à désinstaller : ");
+            String line = in.readLine();
+            if (line == null) return;
+
+            int num = Integer.parseInt(line.trim());
+            String className = p.getServicesByIndex(num - 1);
+            p.removeService(num - 1);
+
+            out.println("##Le service " + className + " a été désinstallé avec succès !");
+        }
+        catch (NumberFormatException e) {
+            out.println("##Erreur : Vous devez saisir un nombre entier.");
+        }
+        catch (IndexOutOfBoundsException e) {
+            out.println("##Erreur : Numéro de service invalide.");
+        }
+        catch (Exception e) {
+            out.println("##Erreur lors de la désinstallation : " + e.getMessage());
         }
     }
 

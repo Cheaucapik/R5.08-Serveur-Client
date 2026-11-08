@@ -171,4 +171,11 @@ public class Programmeur {
     public void setFtp(String UrlFTP){
         this.UrlFTP = UrlFTP;
     }
+
+    // Méthode appelée par ServiceProg pour désinstaller un service
+    public void removeService(int index) {
+        if (index >= 0 && index < servicesList.size()) {
+            servicesList.remove(index);
+        }
+    }
 }
